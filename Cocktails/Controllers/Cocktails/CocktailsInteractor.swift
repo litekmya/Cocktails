@@ -28,7 +28,6 @@ class CocktailsInteractor: CocktailsInteractorInputProtocol {
     }
     
     func provideDrinksData() {
-        
         networkManager.fetchData(from: URLs.randomTenCocktails.rawValue) { drinks in
             let cocktails = drinks.drinks
             self.presenter.receiveDrinksData(cocktails)

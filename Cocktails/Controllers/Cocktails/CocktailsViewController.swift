@@ -9,21 +9,27 @@ import UIKit
 
 //MARK: - Viper protocols
 protocol CocktailsViewInputProtocol: AnyObject {
-    var cocktails: [Drink] { get set }
-    func setCocktails(_ cocktails: [Drink])
+    var collectionView: UICollectionView { get }
+    
+    func register(_ collectionView: UICollectionView)
+    func setupNavigationBar()
+    func appointDelegates()
+    func createRefreshButton()
+    func reloadData()
 }
 
 protocol CocktailsViewOutputProtocol {
+    var cocktailsCount: Int { get }
     init(view:CocktailsViewInputProtocol)
     func requestData()
+    func getCocktail(with indexPath: IndexPath) -> Drink
+    func showCocktailDetails(at indexPath: IndexPath)
 }
 
 class CocktailsViewController: UIViewController {
     
     //MARK: - Public properties
     var presenter: CocktailsViewOutputProtocol!
-    var cocktails: [Drink] = []
-    var cocktailsImages: [UIImage] = []
     
     let collectionView = UICollectionView(
         frame: .zero,
@@ -37,32 +43,21 @@ class CocktailsViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(collectionView)
-        setupNavigationBar()
+        view.backgroundColor = .white
         
         configurator.configure(with: self)
         presenter.requestData()
     }
     
-    //MARK: - Private methods
-    private func setupNavigationBar() {
-        title = "Cocktails"
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let refreshButton = UIBarButtonItem(
-            barButtonSystemItem: .refresh,
-            target: self,
-            action: #selector(refreshCoctails))
-        
-        navigationItem.rightBarButtonItem = refreshButton
-    }
-    
     @objc func refreshCoctails() {
         presenter.requestData()
     }
+}
+
+//MARK: - CocktailsViewInputProtocol
+extension CocktailsViewController: CocktailsViewInputProtocol {
     
-    private func register(_ collectionView: UICollectionView) {
+    func register(_ collectionView: UICollectionView) {
         view.addSubview(collectionView)
         
         collectionView.register(CocktailsViewCell.self, forCellWithReuseIdentifier: CocktailsViewCell.identifier)
@@ -70,13 +65,29 @@ class CocktailsViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.isScrollEnabled = false
     }
-}
-
-//MARK: - CocktailsViewInputProtocol
-extension CocktailsViewController: CocktailsViewInputProtocol {
     
-    //MARK: - !!! Исправить данный метод, если в будущем нам не понадобятся данные [Drink]
-    func setCocktails(_ cocktails: [Drink]) {
+    func appointDelegates() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
+    
+    func setupNavigationBar() {
+        title = "Cocktails"
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func createRefreshButton() {
+        let refreshButton = UIBarButtonItem(
+            barButtonSystemItem: .refresh,
+            target: self,
+            action: #selector(refreshCoctails)
+        )
+        
+        navigationItem.rightBarButtonItem = refreshButton
+    }
+    
+    func reloadData() {
         collectionView.reloadData()
     }
 }
@@ -85,17 +96,26 @@ extension CocktailsViewController: CocktailsViewInputProtocol {
 extension CocktailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cocktails.count - 1
+        presenter.cocktailsCount - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CocktailsViewCell.identifier, for: indexPath) as! CocktailsViewCell
-        let cocktail = cocktails[indexPath.item]
         
-        cell.getImage(from: cocktail)
+        cell.imageView.image = nil
+        cell.activityIndicator.startAnimating()
+        cell.getImage(from: presenter.getCocktail(with: indexPath))
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("!")
+        presenter.showCocktailDetails(at: indexPath)
+        print("Did select item")
+    }
+    
+    
     
     //MARK: - Create Layout
     static func createLayout() -> UICollectionViewCompositionalLayout {

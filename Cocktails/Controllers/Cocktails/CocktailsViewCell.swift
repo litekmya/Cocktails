@@ -23,7 +23,6 @@ class CocktailsViewCell: UICollectionViewCell {
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .large
-        activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         
         return activityIndicator
