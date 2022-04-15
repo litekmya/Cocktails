@@ -20,12 +20,15 @@ protocol CocktailsViewInputProtocol: AnyObject {
 
 protocol CocktailsViewOutputProtocol {
     var cocktailsCount: Int { get }
+    
     init(view:CocktailsViewInputProtocol)
+    
     func requestData()
     func getCocktail(with indexPath: IndexPath) -> Drink
-    func showCocktailDetails(at indexPath: IndexPath)
+    func showCocktailDetails(at indexPath: Int, with cocktailImage: UIImage)
 }
 
+//MARK: - ViewController
 class CocktailsViewController: UIViewController {
     
     //MARK: - Public properties
@@ -39,6 +42,8 @@ class CocktailsViewController: UIViewController {
     //MARK: - Private properties
     private let configurator: CocktailsConfiguratorProtocol = CocktailsConfigurator()
     private var shuffleButton: UIButton!
+    private var cocktailDetails: CocktailsData!
+    private var cocktailImage: UIImage!
         
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -104,18 +109,19 @@ extension CocktailsViewController: UICollectionViewDelegate, UICollectionViewDat
         
         cell.imageView.image = nil
         cell.activityIndicator.startAnimating()
-        cell.getImage(from: presenter.getCocktail(with: indexPath))
+        
+        let cocktail = presenter.getCocktail(with: indexPath)
+        cell.getImage(from: cocktail) { image in
+            self.cocktailImage = image
+        }
         
         return cell
     }
     
+    //MARK: - Did select item at
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("!")
-        presenter.showCocktailDetails(at: indexPath)
-        print("Did select item")
+        presenter.showCocktailDetails(at: indexPath.item, with: cocktailImage)
     }
-    
-    
     
     //MARK: - Create Layout
     static func createLayout() -> UICollectionViewCompositionalLayout {

@@ -9,13 +9,14 @@ import Foundation
 
 protocol CocktailDetailsInteractorInputProtocol: AnyObject {
     init(presenter: CocktailDetailsInteractorOutputProtocol)
+    func provideData()
 }
 
 protocol CocktailDetailsInteractorOutputProtocol {
-
+    func recieveData()
 }
 
-class CocktailDetailsInteractor {
+class CocktailDetailsInteractor: CocktailDetailsInteractorInputProtocol {
     
     var presenter: CocktailDetailsInteractorOutputProtocol
     
@@ -23,8 +24,8 @@ class CocktailDetailsInteractor {
         self.presenter = presenter
     }
     
-}
-
-extension CocktailDetailsInteractor: CocktailDetailsInteractorInputProtocol {
+    func provideData() {
+        presenter.recieveData()
+    }
     
 }

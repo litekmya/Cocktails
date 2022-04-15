@@ -27,7 +27,7 @@
 		3CAEA0B2273848C0009CAFF7 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B1273848C0009CAFF7 /* FavoriteViewController.swift */; };
 		3CAEA0B4273849A8009CAFF7 /* CocktailDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B3273849A8009CAFF7 /* CocktailDetailsViewController.swift */; };
 		3CAEA0B72738B605009CAFF7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B62738B605009CAFF7 /* NetworkManager.swift */; };
-		3CAEA0B92738B828009CAFF7 /* Drinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B82738B828009CAFF7 /* Drinks.swift */; };
+		3CAEA0B92738B828009CAFF7 /* Cocktails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B82738B828009CAFF7 /* Cocktails.swift */; };
 		3CAEA0BB2738BE9E009CAFF7 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0BA2738BE9E009CAFF7 /* URLs.swift */; };
 		DC70521FF875E7AA0837ABC7 /* Pods_Cocktails.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E27888929C83B7FA61BA91F /* Pods_Cocktails.framework */; };
 /* End PBXBuildFile section */
@@ -56,7 +56,7 @@
 		3CAEA0B1273848C0009CAFF7 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		3CAEA0B3273849A8009CAFF7 /* CocktailDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailDetailsViewController.swift; sourceTree = "<group>"; };
 		3CAEA0B62738B605009CAFF7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		3CAEA0B82738B828009CAFF7 /* Drinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drinks.swift; sourceTree = "<group>"; };
+		3CAEA0B82738B828009CAFF7 /* Cocktails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktails.swift; sourceTree = "<group>"; };
 		3CAEA0BA2738BE9E009CAFF7 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		BCF0E538553581EAD008F816 /* Pods-Cocktails.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.debug.xcconfig"; path = "Target Support Files/Pods-Cocktails/Pods-Cocktails.debug.xcconfig"; sourceTree = "<group>"; };
 		DC54F6908FBB96501E74E522 /* Pods-Cocktails.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.release.xcconfig"; path = "Target Support Files/Pods-Cocktails/Pods-Cocktails.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				3C05E4A92737DAAB00E50CEE /* CocktailsData.swift */,
-				3CAEA0B82738B828009CAFF7 /* Drinks.swift */,
+				3CAEA0B82738B828009CAFF7 /* Cocktails.swift */,
 				3CAEA0BA2738BE9E009CAFF7 /* URLs.swift */,
 			);
 			path = Models;
@@ -337,7 +337,7 @@
 				3CAEA0AF27383C2D009CAFF7 /* SearchViewController.swift in Sources */,
 				3C05E48A2734246700E50CEE /* SceneDelegate.swift in Sources */,
 				3C7AF5B6274B618F001B7B88 /* CocktailDetailsPresenter.swift in Sources */,
-				3CAEA0B92738B828009CAFF7 /* Drinks.swift in Sources */,
+				3CAEA0B92738B828009CAFF7 /* Cocktails.swift in Sources */,
 				3C05E4AA2737DAAB00E50CEE /* CocktailsData.swift in Sources */,
 				3CAEA0B2273848C0009CAFF7 /* FavoriteViewController.swift in Sources */,
 				3C05E4922734246700E50CEE /* Cocktails.xcdatamodeld in Sources */,

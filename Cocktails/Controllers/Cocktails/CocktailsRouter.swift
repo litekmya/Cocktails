@@ -8,14 +8,10 @@
 import Foundation
 import UIKit
 
-enum Segues: String {
-    case showCocktailDetails = "showDetails"
-}
-
 protocol CocktailsRouterInputProtocol {
     init(viewController:  CocktailsViewController)
     
-    func openCocktailDetailsViewController(with cocktail: Drink)
+    func openCocktailDetailsViewController(with cocktail: Drink, cocktailImage: UIImage)
 }
 
 class CocktailsRouter: CocktailsRouterInputProtocol {
@@ -26,12 +22,18 @@ class CocktailsRouter: CocktailsRouterInputProtocol {
         self.viewController = viewController
     }
     
-    func openCocktailDetailsViewController(with cocktail: Drink) {
+    func openCocktailDetailsViewController(with cocktail: Drink, cocktailImage: UIImage) {
         let cocktailDetailsViewController = CocktailDetailsViewController()
-        cocktailDetailsViewController.title = "cocktailDetailsViewController"
+        cocktailDetailsViewController.configurator.configure(with: cocktailDetailsViewController)
+        cocktailDetailsViewController.title = cocktail.strDrink
         cocktailDetailsViewController.cocktail = cocktail
-        cocktailDetailsViewController
         
+        guard let imageString = cocktail.strDrinkThumb else { return }
+        let cocktailImage = NetworkManager.shared.fetchImage(from: imageString)
+        
+        cocktailDetailsViewController.cocktailImage = cocktailImage
+        cocktailDetailsViewController.presenter.requestData()
+
         self.viewController.navigationController?.pushViewController(cocktailDetailsViewController, animated: true)
 
     }

@@ -13,6 +13,7 @@ class CocktailsPresenter {
     unowned var view: CocktailsViewInputProtocol
     var interactor: CocktailsInteractorInputProtocol!
     var router: CocktailsRouterInputProtocol!
+    var cocktailDetails: CocktailsData!
     var cocktailsCount: Int {
         cocktails.count
     }
@@ -24,6 +25,7 @@ class CocktailsPresenter {
     }
 }
 
+//MARK: - CocktailsViewOutputProtocol
 extension CocktailsPresenter: CocktailsViewOutputProtocol {
     
     func requestData() {
@@ -31,24 +33,28 @@ extension CocktailsPresenter: CocktailsViewOutputProtocol {
     }
     
     func getCocktail(with indexPath: IndexPath) -> Drink {
-        cocktails[indexPath.item]
+        print("View делает запрос у presenter для получения данных Коктейля")
+        return cocktails[indexPath.item]
     }
     
-    func showCocktailDetails(at indexPath: IndexPath) {
-        let cocktail = cocktails[indexPath.item]
-        print("Метод из пресентера")
+    func showCocktailDetails(at indexPath: Int, with cocktailImage: UIImage) {
+        let cocktail = cocktails[indexPath]
         
-        router.openCocktailDetailsViewController(with: cocktail)
+        router.openCocktailDetailsViewController(with: cocktail, cocktailImage: cocktailImage)
     }
 }
 
+//MARK: - CocktailsInteractorOutputProtocol
 extension CocktailsPresenter: CocktailsInteractorOutputProtocol {
-    func receiveDrinksData(_ cocktailsData: [Drink]) {
+    
+    func customizeView() {
         view.register(view.collectionView)
         view.setupNavigationBar()
         view.appointDelegates()
         view.createRefreshButton()
-        
+    }
+    
+    func receiveDrinksData(_ cocktailsData: [Drink]) {
         cocktails = cocktailsData
         
         view.reloadData()

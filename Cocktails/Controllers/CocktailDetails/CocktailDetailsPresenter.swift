@@ -19,8 +19,18 @@ class CocktailDetailsPresenter {
 
 extension CocktailDetailsPresenter: CocktailDetailsViewOutputProtocol {
     
+    func requestData() {
+        interactor.provideData()
+    }
 }
 
 extension CocktailDetailsPresenter: CocktailDetailsInteractorOutputProtocol {
     
+    func recieveData() {        
+        view.setupView()
+        view.setupScrollView()
+        view.setupContentView()
+//        view.setupCocktailTitleLabel()
+        view.setupImageView()
+    }
 }

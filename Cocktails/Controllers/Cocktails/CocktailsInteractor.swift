@@ -8,20 +8,24 @@
 import Foundation
 import UIKit
 
+//MARK: - Protocols
 protocol CocktailsInteractorInputProtocol {
     init(presenter: CocktailsInteractorOutputProtocol)
     func provideDrinksData()
 }
 
 protocol CocktailsInteractorOutputProtocol: AnyObject {
+    func customizeView()
     func receiveDrinksData(_ coctailsData: [Drink])
 }
 
+//MARK: - Class
 class CocktailsInteractor: CocktailsInteractorInputProtocol {
     
     unowned let presenter: CocktailsInteractorOutputProtocol
     
     private let networkManager = NetworkManager.shared
+    private var cocktails: [Drink]!
     
     required init(presenter: CocktailsInteractorOutputProtocol) {
         self.presenter = presenter
@@ -29,8 +33,9 @@ class CocktailsInteractor: CocktailsInteractorInputProtocol {
     
     func provideDrinksData() {
         networkManager.fetchData(from: URLs.randomTenCocktails.rawValue) { drinks in
-            let cocktails = drinks.drinks
-            self.presenter.receiveDrinksData(cocktails)
+            self.cocktails = drinks.drinks
+            self.presenter.customizeView()
+            self.presenter.receiveDrinksData(self.cocktails)
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  Drinks.swift
+//  Cocktails.swift
 //  Cocktails
 //
 //  Created by Владимир Ли on 08.11.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Drinks: Codable {
+struct Cocktails: Codable {
     let drinks: [Drink]
 }
 

@@ -47,7 +47,7 @@ class CocktailsViewCell: UICollectionViewCell {
         activityIndicator.frame = contentView.bounds
     }
     
-    func getImage(from cocktail: Drink) {
+    func getImage(from cocktail: Drink, with completion: @escaping(UIImage) -> Void) {
         DispatchQueue.global().async {
             guard let imageURL = cocktail.strDrinkThumb else { return }
             let image = self.networkManager.fetchImage(from: imageURL)
@@ -55,7 +55,16 @@ class CocktailsViewCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 self.imageView.image = image
+                
+                completion(image)
             }
         }
     }
+//
+//    func getImage(from image: UIImage) {
+//        DispatchQueue.main.async {
+//            self.activityIndicator.stopAnimating()
+//            self.imageView.image = image
+//        }
+//    }
 }

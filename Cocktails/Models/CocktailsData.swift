@@ -10,7 +10,7 @@ import UIKit
 // Для передачи данных можно создать дополнительную модель данных, для того, чтобы было проще передовать данные в другие классы
 struct CocktailsData {
     let title: String
-    let image: UIImage?
+    var image: UIImage?
     let ingredients: [String]
     let instruction: String
 }
