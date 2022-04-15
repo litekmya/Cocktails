@@ -26,11 +26,13 @@ extension CocktailDetailsPresenter: CocktailDetailsViewOutputProtocol {
 
 extension CocktailDetailsPresenter: CocktailDetailsInteractorOutputProtocol {
     
-    func recieveData() {        
+    func recieveData() {
         view.setupView()
         view.setupScrollView()
         view.setupContentView()
-//        view.setupCocktailTitleLabel()
         view.setupImageView()
+        view.setupInstructionsLabel()
+        view.setupIngedientsStaticlabel()
+        view.setupIngredientsLabel()
     }
 }

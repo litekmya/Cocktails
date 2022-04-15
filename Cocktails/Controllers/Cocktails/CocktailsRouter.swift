@@ -11,7 +11,7 @@ import UIKit
 protocol CocktailsRouterInputProtocol {
     init(viewController:  CocktailsViewController)
     
-    func openCocktailDetailsViewController(with cocktail: Drink, cocktailImage: UIImage)
+    func openCocktailDetailsViewController(with cocktail: Drink)
 }
 
 class CocktailsRouter: CocktailsRouterInputProtocol {
@@ -22,7 +22,7 @@ class CocktailsRouter: CocktailsRouterInputProtocol {
         self.viewController = viewController
     }
     
-    func openCocktailDetailsViewController(with cocktail: Drink, cocktailImage: UIImage) {
+    func openCocktailDetailsViewController(with cocktail: Drink) {
         let cocktailDetailsViewController = CocktailDetailsViewController()
         cocktailDetailsViewController.configurator.configure(with: cocktailDetailsViewController)
         cocktailDetailsViewController.title = cocktail.strDrink
@@ -31,10 +31,13 @@ class CocktailsRouter: CocktailsRouterInputProtocol {
         guard let imageString = cocktail.strDrinkThumb else { return }
         let cocktailImage = NetworkManager.shared.fetchImage(from: imageString)
         
+        let cocktailData = CocktailData(cocktail: cocktail)
+        
+        cocktailDetailsViewController.cocktailData = cocktailData
+        
         cocktailDetailsViewController.cocktailImage = cocktailImage
         cocktailDetailsViewController.presenter.requestData()
 
         self.viewController.navigationController?.pushViewController(cocktailDetailsViewController, animated: true)
-
     }
 }

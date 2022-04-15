@@ -13,7 +13,7 @@ class CocktailsPresenter {
     unowned var view: CocktailsViewInputProtocol
     var interactor: CocktailsInteractorInputProtocol!
     var router: CocktailsRouterInputProtocol!
-    var cocktailDetails: CocktailsData!
+    var cocktailDetails: CocktailData!
     var cocktailsCount: Int {
         cocktails.count
     }
@@ -40,7 +40,7 @@ extension CocktailsPresenter: CocktailsViewOutputProtocol {
     func showCocktailDetails(at indexPath: Int, with cocktailImage: UIImage) {
         let cocktail = cocktails[indexPath]
         
-        router.openCocktailDetailsViewController(with: cocktail, cocktailImage: cocktailImage)
+        router.openCocktailDetailsViewController(with: cocktail)
     }
 }
 

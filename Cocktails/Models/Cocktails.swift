@@ -12,10 +12,9 @@ struct Cocktails: Codable {
 }
 
 struct Drink: Codable {
-    let idDrink: String?
     let strDrink: String?
-    let strTags: String?
     let strAlcoholic: String?
+    let strGlass: String?
     let strInstructions: String?
     let strDrinkThumb: String?
     let strIngredient1: String?
@@ -38,4 +37,15 @@ struct Drink: Codable {
     let strMeasure3: String?
     let strMeasure4: String?
     let strMeasure5: String?
+    let strMeasure6: String?
+    let strMeasure7: String?
+    let strMeasure8: String?
+    let strMeasure9: String?
+    let strMeasure10: String?
+    let strMeasure11: String?
+    let strMeasure12: String?
+    let strMeasure13: String?
+    let strMeasure14: String?
+    let strMeasure15: String?
+    
 }

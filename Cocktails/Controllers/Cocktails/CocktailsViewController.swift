@@ -42,7 +42,7 @@ class CocktailsViewController: UIViewController {
     //MARK: - Private properties
     private let configurator: CocktailsConfiguratorProtocol = CocktailsConfigurator()
     private var shuffleButton: UIButton!
-    private var cocktailDetails: CocktailsData!
+    private var cocktailDetails: CocktailData!
     private var cocktailImage: UIImage!
         
     //MARK: - Lifecycle

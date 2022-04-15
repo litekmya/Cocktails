@@ -42,7 +42,6 @@ class NetworkManager {
     }
     
     func fetchImage(from urlString: String, with complition: @escaping(UIImage) -> Void) {
-//        guard let imagePlug = UIImage(named: "plug") else { return }
         guard let url = URL(string: urlString) else { return }
         guard let imageData = try? Data(contentsOf: url) else { return }
         guard let image = UIImage(data: imageData) else { return }
