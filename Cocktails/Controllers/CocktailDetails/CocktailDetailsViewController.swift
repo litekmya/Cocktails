@@ -14,8 +14,9 @@ protocol CocktailDetailsViewInputProtocol: AnyObject {
     func setupImageView()
     
     func setupInstructionsLabel()
-    func setupIngedientsStaticlabel()
-    func setupIngredientsLabel()
+    func setupIngedientslabel()
+    func setupCocktailTypeLabels()
+    func setupGlassLabel()
 }
 
 protocol CocktailDetailsViewOutputProtocol {
@@ -41,11 +42,11 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     private let ingredientsStaticLabel = UILabel()
     private let glassStaticLabel = UILabel()
-    private let drinkTypeStaticLabel = UILabel()
+    private let cocktailTypeStaticLabel = UILabel()
     
     private let ingredientsLabel = UILabel()
     private let glassLabel = UILabel()
-    private let drinkTypeLabel = UILabel()
+    private let cocktailTypeLabel = UILabel()
     
     private let instructionsLabel = UILabel()
 
@@ -60,6 +61,7 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
 //MARK: - CocktailDetailsViewInputProtocol
 extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
     
+    //MARK: - Layout
     func setupView() {
         view.addSubview(scrollView)
     }
@@ -86,6 +88,10 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
         contentView.addSubview(instructionsLabel)
         contentView.addSubview(ingredientsStaticLabel)
         contentView.addSubview(ingredientsLabel)
+        contentView.addSubview(cocktailTypeStaticLabel)
+        contentView.addSubview(cocktailTypeLabel)
+        contentView.addSubview(glassStaticLabel)
+        contentView.addSubview(glassLabel)
         
         scrollView.contentSize = contentView.frame.size
     }
@@ -99,66 +105,54 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
         imageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 30).isActive = true
         imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30).isActive = true
         imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30).isActive = true
-//        imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
     
-        imageView.backgroundColor = .blue
         imageView.image = cocktailImage
         imageView.contentMode = .scaleAspectFill
     }
     
     func setupInstructionsLabel() {
-        instructionsLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-        instructionsLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width - 32).isActive = true
-        
-        instructionsLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16).isActive = true
-        instructionsLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16).isActive = true
-        instructionsLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16).isActive = true
-//        instructionsLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
-        instructionsLabel.numberOfLines = 30
-        
-        instructionsLabel.text = cocktailData.instruction
+        setup(label: instructionsLabel, imageView, cocktailData.instruction, false)
     }
     
-    func setupIngedientsStaticlabel() {
-        ingredientsStaticLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        ingredientsStaticLabel.widthAnchor.constraint(equalTo: instructionsLabel.widthAnchor).isActive = true
-        
-        ingredientsStaticLabel.topAnchor.constraint(equalTo: instructionsLabel.bottomAnchor, constant: 20).isActive = true
-        ingredientsStaticLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16).isActive = true
-        ingredientsStaticLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16).isActive = true
-//        ingredientsStaticLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
-        ingredientsStaticLabel.text = "Ingredients:"
-        ingredientsStaticLabel.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .body), size: 20)
+    func setupIngedientslabel() {
+        setupStatic(label: ingredientsStaticLabel, instructionsLabel, "Ingredients:")
+        setup(label: ingredientsLabel, ingredientsStaticLabel, getIngredients(), false)
     }
     
-    func setupIngredientsLabel() {
-        ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        ingredientsLabel.topAnchor.constraint(equalTo: ingredientsStaticLabel.bottomAnchor, constant: 6).isActive = true
-        ingredientsLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16).isActive = true
-        ingredientsLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16).isActive = true
-        ingredientsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant:  -16).isActive = true
-        
-        ingredientsLabel.text = getIngredients()
-        
-        ingredientsLabel.numberOfLines = 20
+    func setupCocktailTypeLabels() {
+        setupStatic(label: cocktailTypeStaticLabel, ingredientsLabel, "Cocktail type:")
+        setup(label: cocktailTypeLabel, cocktailTypeStaticLabel, cocktailData.alcoholic, false)
     }
     
-    private func setupStatic(label: UILabel, _ view: UIView, _ title: String) {
+    func setupGlassLabel() {
+        setupStatic(label: glassStaticLabel, cocktailTypeLabel, "Glass:")
+        setup(label: glassLabel, glassStaticLabel, cocktailData.glass, true)
+    }
+    
+    //MARK: - Private Methods
+    private func setupStatic(label: UILabel, _ topView: UIView, _ title: String) {
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        label.widthAnchor.constraint(equalTo: topView.widthAnchor).isActive = true
         
-        label.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 20).isActive = true
+        label.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20).isActive = true
         label.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16).isActive = true
         label.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16).isActive = true
         
         label.text = title
-        label.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .body), size: 20)
+        label.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .headline), size: 20)
+    }
+    
+    private func setup(label: UILabel, _ topView: UIView, _ text: String, _ bottomIsActive: Bool?) {
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 6).isActive = true
+        label.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16).isActive = true
+        label.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16).isActive = true
+        label.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = bottomIsActive ?? true
+        
+        label.text = text
+        label.numberOfLines = 20
     }
     
     private func getIngredients() -> String{
