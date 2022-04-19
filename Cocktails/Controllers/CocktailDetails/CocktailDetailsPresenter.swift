@@ -35,5 +35,6 @@ extension CocktailDetailsPresenter: CocktailDetailsInteractorOutputProtocol {
         view.setupIngedientslabel()
         view.setupCocktailTypeLabels()
         view.setupGlassLabel()
+        view.setupFavoriteButton()
     }
 }

@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 protocol CocktailDetailsViewInputProtocol: AnyObject {
     func setupView()
     func setupScrollView()
     func setupContentView()
     func setupImageView()
+    func setupFavoriteButton()
     
     func setupInstructionsLabel()
     func setupIngedientslabel()
@@ -30,6 +32,7 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     //MARK: - Public properties
     var presenter: CocktailDetailsViewOutputProtocol!
     var configurator: CocktailDetailsConfiguratorProtocol = CocktailDetailsConfigurator()
+    
     var cocktail: Drink!
     var cocktailImage: UIImage!
     var cocktailData: CocktailData!
@@ -49,6 +52,10 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     private let cocktailTypeLabel = UILabel()
     
     private let instructionsLabel = UILabel()
+    
+    private var favoriteButton: UIBarButtonItem!
+    
+    private var coreDataManager = CoreDataManager.shared
 
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -127,6 +134,23 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
     func setupGlassLabel() {
         setupStatic(label: glassStaticLabel, cocktailTypeLabel, "Glass:")
         setup(label: glassLabel, glassStaticLabel, cocktailData.glass, true)
+    }
+    
+    func setupFavoriteButton() {
+        let starImage = UIImage(systemName: "star")
+        
+        favoriteButton = UIBarButtonItem(image: starImage, style: .done, target: self, action: #selector(addToFavorite))
+        
+        navigationItem.rightBarButtonItem = favoriteButton
+    }
+    
+    //MARK: - @objc
+    @objc func addToFavorite() {
+        print("add to favorite")
+        
+        favoriteButton.image = UIImage(systemName: "star.fill")
+        
+        coreDataManager.saveFavorite(from: cocktailData, ingredients: ingredientsLabel.text)
     }
     
     //MARK: - Private Methods

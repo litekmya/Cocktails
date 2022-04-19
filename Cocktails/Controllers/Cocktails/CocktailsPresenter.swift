@@ -13,6 +13,7 @@ class CocktailsPresenter {
     unowned var view: CocktailsViewInputProtocol
     var interactor: CocktailsInteractorInputProtocol!
     var router: CocktailsRouterInputProtocol!
+    
     var cocktailDetails: CocktailData!
     var cocktailsCount: Int {
         cocktails.count

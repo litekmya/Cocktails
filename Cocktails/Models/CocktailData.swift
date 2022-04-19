@@ -15,6 +15,7 @@ struct CocktailData {
     var instruction = ""
     var alcoholic = ""
     var glass = ""
+    var imageString = ""
         
     init() {}
     init(cocktail: Drink) {
@@ -56,5 +57,6 @@ struct CocktailData {
         self.instruction = cocktail.strInstructions ?? ""
         self.alcoholic = cocktail.strAlcoholic ?? ""
         self.glass = cocktail.strGlass ?? ""
+        self.imageString = cocktail.strDrinkThumb ?? ""
     }
 }
