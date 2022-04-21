@@ -30,7 +30,6 @@ class FavoriteInteractor: FavoriteInteractorInputProtocol {
     func provideData() {
         
         let favoriteCocktails = coreDataManager.fetchData()
-        print(favoriteCocktails.count)
         
         presenter.customizeView()
         presenter.recieveData(favoriteCocktails)

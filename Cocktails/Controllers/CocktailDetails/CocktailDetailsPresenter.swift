@@ -31,6 +31,7 @@ extension CocktailDetailsPresenter: CocktailDetailsInteractorOutputProtocol {
         view.setupScrollView()
         view.setupContentView()
         view.setupImageView()
+        view.setupACtivityIndicator()
         view.setupInstructionsLabel()
         view.setupIngedientslabel()
         view.setupCocktailTypeLabels()

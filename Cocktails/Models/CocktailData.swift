@@ -59,4 +59,14 @@ struct CocktailData {
         self.glass = cocktail.strGlass ?? ""
         self.imageString = cocktail.strDrinkThumb ?? ""
     }
+    
+    init(cocktail: Cocktail) {
+        self.title = cocktail.title ?? ""
+        self.ingredients = [cocktail.ingredients ?? ""]
+        self.instruction = cocktail.instruction ?? ""
+        self.alcoholic = cocktail.alcoholic ?? ""
+        self.glass = cocktail.glass ?? ""
+        self.imageString = cocktail.imageString ?? ""
+        
+    }
 }

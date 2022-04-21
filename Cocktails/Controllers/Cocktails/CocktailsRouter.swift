@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-protocol CocktailsRouterInputProtocol {
+protocol CocktailsRouterProtocol {
     init(viewController:  CocktailsViewController)
     
     func openCocktailDetailsViewController(with cocktail: Drink)
 }
 
-class CocktailsRouter: CocktailsRouterInputProtocol {
+class CocktailsRouter: CocktailsRouterProtocol {
     
     unowned let viewController: CocktailsViewController
     
@@ -26,16 +26,16 @@ class CocktailsRouter: CocktailsRouterInputProtocol {
         let cocktailDetailsViewController = CocktailDetailsViewController()
         cocktailDetailsViewController.configurator.configure(with: cocktailDetailsViewController)
         cocktailDetailsViewController.title = cocktail.strDrink
-        cocktailDetailsViewController.cocktail = cocktail
-        
-        guard let imageString = cocktail.strDrinkThumb else { return }
-        let cocktailImage = NetworkManager.shared.fetchImage(from: imageString)
         
         let cocktailData = CocktailData(cocktail: cocktail)
-        
         cocktailDetailsViewController.cocktailData = cocktailData
         
-        cocktailDetailsViewController.cocktailImage = cocktailImage
+        DispatchQueue.main.async {
+            guard let imageString = cocktail.strDrinkThumb else { return }
+            let cocktailImage = NetworkManager.shared.fetchImage(from: imageString)
+            cocktailDetailsViewController.cocktailImage = cocktailImage
+        }
+        
         cocktailDetailsViewController.presenter.requestData()
 
         self.viewController.navigationController?.pushViewController(cocktailDetailsViewController, animated: true)

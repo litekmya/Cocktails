@@ -13,6 +13,7 @@ protocol CocktailDetailsViewInputProtocol: AnyObject {
     func setupScrollView()
     func setupContentView()
     func setupImageView()
+    func setupACtivityIndicator()
     func setupFavoriteButton()
     
     func setupInstructionsLabel()
@@ -33,7 +34,7 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     var presenter: CocktailDetailsViewOutputProtocol!
     var configurator: CocktailDetailsConfiguratorProtocol = CocktailDetailsConfigurator()
     
-    var cocktail: Drink!
+//    var cocktail: Drink!
     var cocktailImage: UIImage!
     var cocktailData: CocktailData!
     
@@ -42,6 +43,7 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     private let contentView = UIView()
     
     private let imageView = UIImageView()
+    private let activityIndicator = UIActivityIndicatorView()
     
     private let ingredientsStaticLabel = UILabel()
     private let glassStaticLabel = UILabel()
@@ -54,6 +56,10 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     private let instructionsLabel = UILabel()
     
     private var favoriteButton: UIBarButtonItem!
+    private let starImage = UIImage(systemName: "star")
+    private let fillStarImage = UIImage(systemName: "star.fill")
+    
+    private var newFavoriteCocktail: Cocktail!
     
     private var coreDataManager = CoreDataManager.shared
 
@@ -113,8 +119,25 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
         imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30).isActive = true
         imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30).isActive = true
     
-        imageView.image = cocktailImage
         imageView.contentMode = .scaleAspectFill
+        imageView.addSubview(activityIndicator)
+        
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.imageView.image = self.cocktailImage
+            
+        }
+    }
+    
+    func setupACtivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        
+        activityIndicator.startAnimating()
+        activityIndicator.style = .medium
+        activityIndicator.hidesWhenStopped = true
     }
     
     func setupInstructionsLabel() {
@@ -141,16 +164,27 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
         
         favoriteButton = UIBarButtonItem(image: starImage, style: .done, target: self, action: #selector(addToFavorite))
         
+        checkData(cocktail: cocktailData) { favoriteCocktail in
+            favoriteButton = UIBarButtonItem(image: fillStarImage, style: .done, target: self, action: #selector(addToFavorite))
+            
+            newFavoriteCocktail = favoriteCocktail
+
+        }
+        
         navigationItem.rightBarButtonItem = favoriteButton
     }
     
     //MARK: - @objc
     @objc func addToFavorite() {
-        print("add to favorite")
-        
-        favoriteButton.image = UIImage(systemName: "star.fill")
-        
-        coreDataManager.saveFavorite(from: cocktailData, ingredients: ingredientsLabel.text)
+        if favoriteButton.image == starImage {
+            favoriteButton.image = fillStarImage
+            coreDataManager.saveFavorite(from: cocktailData, ingredients: ingredientsLabel.text) { cocktail in
+                newFavoriteCocktail = cocktail
+            }
+        } else {
+            favoriteButton.image = starImage
+            coreDataManager.deleteFavorite(cocktail: newFavoriteCocktail)
+        }
     }
     
     //MARK: - Private Methods
@@ -179,15 +213,29 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
         label.numberOfLines = 20
     }
     
-    private func getIngredients() -> String{
+    private func getIngredients() -> String {
         var ingredientsAndMeasure = ""
         
         for index in 0..<cocktailData.ingredients.count {
-            if !cocktailData.ingredients[index].isEmpty {
+            if !cocktailData.ingredients[index].isEmpty && !cocktailData.measures.isEmpty {
                 ingredientsAndMeasure += cocktailData.ingredients[index] + "-" + cocktailData.measures[index] + "\n"
+            } else {
+                ingredientsAndMeasure = cocktailData.ingredients[index]
             }
         }
         
         return ingredientsAndMeasure
+    }
+    
+    private func checkData(cocktail: CocktailData, completion: (Cocktail) -> Void) {
+        let favoriteCocktails = coreDataManager.fetchData()
+        
+        for favoriteCocktail in favoriteCocktails {
+            let favoriteCocktailData = CocktailData(cocktail: favoriteCocktail)
+            
+            if cocktail.title == favoriteCocktailData.title {
+                completion(favoriteCocktail)
+            }
+        }
     }
 }

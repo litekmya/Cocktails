@@ -9,7 +9,6 @@ import UIKit
 
 protocol FavoriteViewInputProtocol: AnyObject {
     func customizeTableView()
-    func reloadData()
 }
 
 protocol FavoriteViewOutputProtocol {
@@ -17,6 +16,7 @@ protocol FavoriteViewOutputProtocol {
     
     func provideData()
     func getFavoriteCocktails() -> [Cocktail]
+    func showCocktailDetails(at indexPath: Int)
 }
 
 class FavoriteViewController: UITableViewController {
@@ -33,7 +33,6 @@ class FavoriteViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(with: self)
-//        presenter.provideData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,15 +46,26 @@ class FavoriteViewController: UITableViewController {
         super.viewDidDisappear(animated)
         print("did")
     }
+    
+    //MARK: - Private methods
+    private func getImage(imageString: String?, completion: @escaping(UIImage) -> Void) {
+        DispatchQueue.global().async {
+            guard let imageString = imageString else { return }
+            
+            let image = NetworkManager.shared.fetchImage(from: imageString)
+            
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }
+    }
 }
 
 //MARK: - Table view Data Source, Delegate
 extension FavoriteViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        presenter.favoriteCocktails.count
-        let count = presenter.getFavoriteCocktails()
-        return count.count
+        presenter.favoriteCocktails.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,12 +75,28 @@ extension FavoriteViewController {
         let favoriteCocktail = favoriteCocktails[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
-        content.image = UIImage(systemName: "star")
-        content.text = favoriteCocktail.title        
+        content.imageProperties.cornerRadius = 10
+        content.imageProperties.reservedLayoutSize = CGSize(width: 70, height: 70)
+        content.text = favoriteCocktail.title
+        content.image = UIImage(systemName: "star.fill")
         
-        cell.contentConfiguration = content
+        guard let imageString = favoriteCocktail.imageString else { return cell }
+        
+        getImage(imageString: imageString) { image in
+            content.image = image
+            cell.contentConfiguration = content
+        }
                 
+        cell.contentConfiguration = content
+        
         return cell
+    }
+    
+    //MARK: - Did select at
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showCocktailDetails(at: indexPath.row)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -81,9 +107,5 @@ extension FavoriteViewController: FavoriteViewInputProtocol {
         title = "Favorite"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
     }
 }

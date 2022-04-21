@@ -16,8 +16,10 @@ class FavoriteConfigurator: FavoriteConfiguratorProtocol {
     func configure(with view: FavoriteViewController) {
         let presenter = FavoritePresenter(view: view)
         let interactor = FavoriteInteractor(presenter: presenter)
+        let router = FavoriteRouter(viewController: view)
         
         view.presenter = presenter
         presenter.interactor = interactor
+        presenter.router = router
     }
 }

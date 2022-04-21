@@ -5,12 +5,13 @@
 //  Created by Владимир Ли on 19.04.2022.
 //
 
-import Foundation
+import UIKit
 
 class FavoritePresenter {
     
     unowned var view: FavoriteViewInputProtocol
     var interactor: FavoriteInteractorInputProtocol!
+    var router: FavoriteRouterProtocol!
     
     var favoriteCocktails: [Cocktail] = []
     
@@ -26,8 +27,12 @@ extension FavoritePresenter: FavoriteViewOutputProtocol {
     }
     
     func getFavoriteCocktails() -> [Cocktail] {
-        print(favoriteCocktails.count)
-        return favoriteCocktails
+        favoriteCocktails
+    }
+    
+    func showCocktailDetails(at indexPath: Int) {
+        let favoriteCocktail = favoriteCocktails[indexPath]
+        router.openCocktailDetailsViewController(with: favoriteCocktail)
     }
 }
 
@@ -39,6 +44,5 @@ extension FavoritePresenter: FavoriteInteractorOutputProtocol {
     
     func recieveData(_ favoriteCocktails: [Cocktail]) {
         self.favoriteCocktails = favoriteCocktails
-        self.view.reloadData()
     }
 }

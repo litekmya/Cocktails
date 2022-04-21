@@ -12,7 +12,7 @@ class CocktailsPresenter {
     
     unowned var view: CocktailsViewInputProtocol
     var interactor: CocktailsInteractorInputProtocol!
-    var router: CocktailsRouterInputProtocol!
+    var router: CocktailsRouterProtocol!
     
     var cocktailDetails: CocktailData!
     var cocktailsCount: Int {
@@ -34,8 +34,7 @@ extension CocktailsPresenter: CocktailsViewOutputProtocol {
     }
     
     func getCocktail(with indexPath: IndexPath) -> Drink {
-        print("View делает запрос у presenter для получения данных Коктейля")
-        return cocktails[indexPath.item]
+        cocktails[indexPath.item]
     }
     
     func showCocktailDetails(at indexPath: Int, with cocktailImage: UIImage) {

@@ -60,11 +60,4 @@ class CocktailsViewCell: UICollectionViewCell {
             }
         }
     }
-//
-//    func getImage(from image: UIImage) {
-//        DispatchQueue.main.async {
-//            self.activityIndicator.stopAnimating()
-//            self.imageView.image = image
-//        }
-//    }
 }

@@ -12,36 +12,34 @@ class CoreDataManager {
     
     static let shared = CoreDataManager()
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    private var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Cocktails")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         return container
     }()
     
+    private var context: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
+    
     private init() {}
     
     func saveContext () {
-        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
-                print("Cocktail is saved")
             } catch {
-
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
     
-    func saveFavorite(from cocktailData: CocktailData, ingredients: String?) {
-        let context = persistentContainer.viewContext
-        
+    func saveFavorite(from cocktailData: CocktailData, ingredients: String?, completion: (Cocktail) -> Void){
         guard let entityDescription = NSEntityDescription.entity(forEntityName: "Cocktail", in: context) else { return }
         guard let cocktail = NSManagedObject(entity: entityDescription, insertInto: context) as? Cocktail else { return }
         
@@ -52,6 +50,7 @@ class CoreDataManager {
         cocktail.ingredients = ingredients
         cocktail.instruction = cocktailData.instruction
         
+        completion(cocktail)
         saveContext()
     }
     
@@ -59,14 +58,21 @@ class CoreDataManager {
         var cocktails: [Cocktail] = []
         let fetchRequest: NSFetchRequest<Cocktail> = Cocktail.fetchRequest()
         
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         do {
             cocktails = try persistentContainer.viewContext.fetch(fetchRequest)
-            print(cocktails.count)
             
         } catch let error {
             print(error.localizedDescription)
         }
         
         return cocktails
+    }
+    
+    func deleteFavorite(cocktail: Cocktail) {
+        context.delete(cocktail)
+        saveContext()
     }
 }
