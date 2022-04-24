@@ -7,23 +7,29 @@
 
 import UIKit
 
-class ImageView: UIImageView {
+extension UIImage {
     
-    func fetchImage(from url: String) {
+    func fetchImage(from url: String) -> UIImage? {
+        var image: UIImage?
         guard let imageURL = URL(string: url) else {
-            image = UIImage(systemName: "star")
-            return
+            return UIImage(systemName: "star")
         }
         
         if let cachedImage = getCachedImage(from: imageURL) {
-            image = cachedImage
+            print("Получили картинку из кэша")
+            return cachedImage
         }
         
-        ImageManager.shared.getImage(from: imageURL) { data, response in
+        ImageManager.shared.getImage(from: imageURL) { data, response, newImage in
+            
             DispatchQueue.main.async {
-                self.image = UIImage(data: data)
+                image = newImage
             }
+            
+            self.saveDataToCache(with: data, and: response)
         }
+        
+        return image
 
     }
     
@@ -39,8 +45,8 @@ class ImageView: UIImageView {
     
     private func saveDataToCache(with data: Data, and response: URLResponse) {
         guard let urlResponse = response.url else { return }
-        let cachedResponse = CachedURLResponse(response: response, data: data)
         let urlRequest = URLRequest(url: urlResponse)
+        let cachedResponse = CachedURLResponse(response: response, data: data)
         URLCache.shared.storeCachedResponse(cachedResponse, for: urlRequest)
     }
 }

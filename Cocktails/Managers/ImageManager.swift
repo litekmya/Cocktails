@@ -14,7 +14,7 @@ class ImageManager {
     
     private init() {}
     
-    func getImage(from url: URL, completion: @escaping (Data, URLResponse) -> Void) {
+    func getImage(from url: URL, completion: @escaping (Data, URLResponse, UIImage) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -25,7 +25,11 @@ class ImageManager {
             guard let responseURL = response.url else { return }
             guard responseURL == url else { return }
             
-            completion(data, response)
+            guard let image = UIImage(data: data) else { return }
+            
+            print("Мы получили картинку из интернета через ImageManager")
+            
+            completion(data, response, image)
         }
     }
 }

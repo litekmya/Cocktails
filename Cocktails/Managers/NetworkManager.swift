@@ -38,6 +38,8 @@ class NetworkManager {
         guard let imageData = try? Data(contentsOf: url) else { return imagePlug }
         guard let image = UIImage(data: imageData) else { return imagePlug }
         
+        print("Мы получили картинку из интернета через NetworkManager")
+        
         return image
     }
     

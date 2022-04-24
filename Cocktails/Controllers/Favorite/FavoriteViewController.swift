@@ -49,15 +49,18 @@ class FavoriteViewController: UITableViewController {
     
     //MARK: - Private methods
     private func getImage(imageString: String?, completion: @escaping(UIImage) -> Void) {
-        DispatchQueue.global().async {
+//        DispatchQueue.global().async {
             guard let imageString = imageString else { return }
+//            let image = NetworkManager.shared.fetchImage(from: imageString)
+            let image = UIImage()
+            guard let newImage = image.fetchImage(from: imageString) else {
+                print("someError")
+                return }
             
-            let image = NetworkManager.shared.fetchImage(from: imageString)
-            
-            DispatchQueue.main.async {
-                completion(image)
-            }
-        }
+//            DispatchQueue.main.async {
+                completion(newImage)
+//            }
+//        }
     }
 }
 
@@ -81,6 +84,9 @@ extension FavoriteViewController {
         content.image = UIImage(systemName: "star.fill")
         
         guard let imageString = favoriteCocktail.imageString else { return cell }
+        
+//        let image = UIImage()
+//        content.image = image.fetchImage(from: imageString)
         
         getImage(imageString: imageString) { image in
             content.image = image
