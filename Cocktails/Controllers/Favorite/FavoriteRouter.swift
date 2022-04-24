@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 protocol FavoriteRouterProtocol {
     init(viewController: FavoriteViewController)
     
-    func openCocktailDetailsViewController(with cocktail: Cocktail)
+    func openCocktailDetailsViewController(with cocktail: Cocktail, and image: UIImage)
 }
 
 class FavoriteRouter: FavoriteRouterProtocol {
@@ -21,7 +22,7 @@ class FavoriteRouter: FavoriteRouterProtocol {
         self.viewController = viewController
     }
     
-    func openCocktailDetailsViewController(with cocktail: Cocktail) {
+    func openCocktailDetailsViewController(with cocktail: Cocktail, and image: UIImage) {
         let cocktailDetailsViewController = CocktailDetailsViewController()
         cocktailDetailsViewController.configurator.configure(with: cocktailDetailsViewController)
         cocktailDetailsViewController.title = cocktail.title
@@ -30,9 +31,7 @@ class FavoriteRouter: FavoriteRouterProtocol {
         cocktailDetailsViewController.cocktailData = cocktailData
         
         DispatchQueue.main.async {
-            guard let imageString = cocktail.imageString else { return }
-            let cocktailImage = NetworkManager.shared.fetchImage(from: imageString)
-            cocktailDetailsViewController.cocktailImage = cocktailImage
+            cocktailDetailsViewController.cocktailImage = image
         }
         
         cocktailDetailsViewController.presenter.requestData()

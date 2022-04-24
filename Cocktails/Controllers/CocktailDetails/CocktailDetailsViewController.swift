@@ -34,7 +34,6 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     var presenter: CocktailDetailsViewOutputProtocol!
     var configurator: CocktailDetailsConfiguratorProtocol = CocktailDetailsConfigurator()
     
-//    var cocktail: Drink!
     var cocktailImage: UIImage!
     var cocktailData: CocktailData!
     
@@ -124,8 +123,8 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
         
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
+            print("Image has been recieved")
             self.imageView.image = self.cocktailImage
-            
         }
     }
     
@@ -217,10 +216,13 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
         var ingredientsAndMeasure = ""
         
         for index in 0..<cocktailData.ingredients.count {
+            
             if !cocktailData.ingredients[index].isEmpty && !cocktailData.measures.isEmpty {
                 ingredientsAndMeasure += cocktailData.ingredients[index] + "-" + cocktailData.measures[index] + "\n"
-            } else {
-                ingredientsAndMeasure = cocktailData.ingredients[index]
+            } else if cocktailData.measures.isEmpty {
+                ingredientsAndMeasure = cocktailData.ingredients.first ?? "1"
+                
+                return ingredientsAndMeasure
             }
         }
         

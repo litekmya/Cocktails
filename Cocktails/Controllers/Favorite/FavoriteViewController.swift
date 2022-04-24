@@ -16,7 +16,7 @@ protocol FavoriteViewOutputProtocol {
     
     func provideData()
     func getFavoriteCocktails() -> [Cocktail]
-    func showCocktailDetails(at indexPath: Int)
+    func showCocktailDetails(at indexPath: Int, and image: UIImage)
 }
 
 class FavoriteViewController: UITableViewController {
@@ -49,18 +49,11 @@ class FavoriteViewController: UITableViewController {
     
     //MARK: - Private methods
     private func getImage(imageString: String?, completion: @escaping(UIImage) -> Void) {
-//        DispatchQueue.global().async {
-            guard let imageString = imageString else { return }
-//            let image = NetworkManager.shared.fetchImage(from: imageString)
-            let image = UIImage()
-            guard let newImage = image.fetchImage(from: imageString) else {
-                print("someError")
-                return }
-            
-//            DispatchQueue.main.async {
-                completion(newImage)
-//            }
-//        }
+        guard let imageString = imageString else { return }
+        let image = UIImage()
+        guard let newImage = image.fetchImage(from: imageString) else { return }
+        
+        completion(newImage)
     }
 }
 
@@ -85,9 +78,6 @@ extension FavoriteViewController {
         
         guard let imageString = favoriteCocktail.imageString else { return cell }
         
-//        let image = UIImage()
-//        content.image = image.fetchImage(from: imageString)
-        
         getImage(imageString: imageString) { image in
             content.image = image
             cell.contentConfiguration = content
@@ -100,7 +90,13 @@ extension FavoriteViewController {
     
     //MARK: - Did select at
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showCocktailDetails(at: indexPath.row)
+        let favoriteCocktails = presenter.getFavoriteCocktails()
+        let favoriteCocktail = favoriteCocktails[indexPath.row]
+        guard let imageString = favoriteCocktail.imageString else { return }
+        
+        getImage(imageString: imageString) { image in
+            self.presenter.showCocktailDetails(at: indexPath.row, and: image)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

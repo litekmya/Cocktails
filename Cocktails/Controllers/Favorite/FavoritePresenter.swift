@@ -30,9 +30,9 @@ extension FavoritePresenter: FavoriteViewOutputProtocol {
         favoriteCocktails
     }
     
-    func showCocktailDetails(at indexPath: Int) {
+    func showCocktailDetails(at indexPath: Int, and image: UIImage) {
         let favoriteCocktail = favoriteCocktails[indexPath]
-        router.openCocktailDetailsViewController(with: favoriteCocktail)
+        router.openCocktailDetailsViewController(with: favoriteCocktail, and: image)
     }
 }
 
