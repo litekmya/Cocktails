@@ -27,7 +27,7 @@ class FavoriteViewController: UITableViewController {
     
     //MARK: - private properties
     private let cellID = "cell"
-    private let favoriteCocktails: [Cocktail] = []
+    private var favoriteCocktails: [Cocktail] = []
 
     //MARK: - lifecycle
     override func viewDidLoad() {
@@ -38,6 +38,7 @@ class FavoriteViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.provideData()
+        favoriteCocktails = presenter.getFavoriteCocktails()
         tableView.reloadData()
         print("will")
     }
@@ -61,13 +62,12 @@ class FavoriteViewController: UITableViewController {
 extension FavoriteViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.favoriteCocktails.count
+        favoriteCocktails.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
 
-        let favoriteCocktails = presenter.getFavoriteCocktails()
         let favoriteCocktail = favoriteCocktails[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
@@ -90,7 +90,6 @@ extension FavoriteViewController {
     
     //MARK: - Did select at
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favoriteCocktails = presenter.getFavoriteCocktails()
         let favoriteCocktail = favoriteCocktails[indexPath.row]
         guard let imageString = favoriteCocktail.imageString else { return }
         
@@ -99,6 +98,16 @@ extension FavoriteViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let favoriteCocktail = favoriteCocktails[indexPath.row]
+            CoreDataManager.shared.deleteFavorite(cocktail: favoriteCocktail)
+            favoriteCocktails.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 }
 

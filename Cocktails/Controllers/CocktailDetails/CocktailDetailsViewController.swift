@@ -66,7 +66,6 @@ class CocktailDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
     }
 }
 

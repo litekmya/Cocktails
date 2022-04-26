@@ -7,12 +7,39 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+protocol SearchViewInputProtocol: AnyObject {
+    func setupSearchController()
+}
+
+protocol SearchViewOutputProtocol {
+    init(view: SearchViewInputProtocol)
+    func requestData()
+}
+
+class SearchViewController: UIViewController, UISearchBarDelegate {
+    
+    //MARK: - Public properties
+    var presenter: SearchViewOutputProtocol!
+    let configurator: SearchConfiguratorProtocol = SearchConfigurator()
+    
+    //MARK: - Private properties
+    private let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .red
+        configurator.configure(with: self)
+        presenter.requestData()
         
+        view.backgroundColor = .white
+        title = "Cocktail search"
+        
+    }
+}
+
+extension SearchViewController: SearchViewInputProtocol {
+    
+    func setupSearchController() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
     }
 }

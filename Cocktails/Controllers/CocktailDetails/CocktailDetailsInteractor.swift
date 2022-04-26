@@ -7,18 +7,18 @@
 
 import Foundation
 
-protocol CocktailDetailsInteractorInputProtocol: AnyObject {
+protocol CocktailDetailsInteractorInputProtocol {
     init(presenter: CocktailDetailsInteractorOutputProtocol)
     func provideData()
 }
 
-protocol CocktailDetailsInteractorOutputProtocol {
+protocol CocktailDetailsInteractorOutputProtocol: AnyObject {
     func recieveData()
 }
 
 class CocktailDetailsInteractor: CocktailDetailsInteractorInputProtocol {
     
-    var presenter: CocktailDetailsInteractorOutputProtocol
+    unowned var presenter: CocktailDetailsInteractorOutputProtocol
     
     required init(presenter: CocktailDetailsInteractorOutputProtocol) {
         self.presenter = presenter
@@ -27,5 +27,4 @@ class CocktailDetailsInteractor: CocktailDetailsInteractorInputProtocol {
     func provideData() {
         presenter.recieveData()
     }
-    
 }

@@ -77,7 +77,7 @@ extension CocktailsViewController: CocktailsViewInputProtocol {
     }
     
     func setupNavigationBar() {
-        title = "Cocktails"
+        title = "Random cocktails"
         
         navigationController?.navigationBar.prefersLargeTitles = true
     }

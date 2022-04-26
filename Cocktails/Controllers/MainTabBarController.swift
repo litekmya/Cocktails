@@ -22,9 +22,9 @@ class MainTabBarController: UITabBarController  {
             itemImage: "rectangle.on.rectangle.square"
         )
         let searchViewController = createNavigationController(
-            view: SearchViewController(),
-            itemName: "Search",
-            itemImage: "text.magnifyingglass"
+            view: ListViewController(),
+            itemName: "List of Cocktails",
+            itemImage: "list.bullet.indent"
         )
         let favoriteViewController = createNavigationController(
             view: FavoriteViewController(),

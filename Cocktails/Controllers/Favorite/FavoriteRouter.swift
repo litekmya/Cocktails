@@ -5,7 +5,6 @@
 //  Created by Владимир Ли on 19.04.2022.
 //
 
-import Foundation
 import UIKit
 
 protocol FavoriteRouterProtocol {
