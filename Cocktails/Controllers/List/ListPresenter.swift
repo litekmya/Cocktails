@@ -29,5 +29,6 @@ extension ListPresenter: ListInteractorOutputProtocol {
     
     func recieveData() {
         print("List view VIPER is worked")
+        view.setupTableView()
     }
 }

@@ -33,10 +33,6 @@
 		3CA92BC2280F28DE0057EB50 /* FavoriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BC1280F28DE0057EB50 /* FavoriteRouter.swift */; };
 		3CA92BC52810A7720057EB50 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BC42810A7720057EB50 /* Image.swift */; };
 		3CA92BC72810AA5C0057EB50 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BC62810AA5C0057EB50 /* ImageManager.swift */; };
-		3CA92BC92815C7BE0057EB50 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BC82815C7BE0057EB50 /* SearchPresenter.swift */; };
-		3CA92BCB2815C7D50057EB50 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BCA2815C7D50057EB50 /* SearchInteractor.swift */; };
-		3CA92BCD2815C7E90057EB50 /* SearchConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BCC2815C7E80057EB50 /* SearchConfigurator.swift */; };
-		3CA92BCF2815C7F70057EB50 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BCE2815C7F70057EB50 /* SearchRouter.swift */; };
 		3CA92BD128186CC60057EB50 /* ListAllCocktailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BD028186CC60057EB50 /* ListAllCocktailsModel.swift */; };
 		3CA92BD328186E7F0057EB50 /* ExpandableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BD228186E7F0057EB50 /* ExpandableHeaderView.swift */; };
 		3CA92BD628188C9F0057EB50 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BD528188C9F0057EB50 /* ListViewController.swift */; };
@@ -44,7 +40,6 @@
 		3CA92BDA28188CED0057EB50 /* ListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BD928188CED0057EB50 /* ListInteractor.swift */; };
 		3CA92BDC28188D010057EB50 /* ListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BDB28188D010057EB50 /* ListConfigurator.swift */; };
 		3CA92BDE28188D160057EB50 /* ListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA92BDD28188D160057EB50 /* ListRouter.swift */; };
-		3CAEA0AF27383C2D009CAFF7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0AE27383C2D009CAFF7 /* SearchViewController.swift */; };
 		3CAEA0B4273849A8009CAFF7 /* CocktailDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B3273849A8009CAFF7 /* CocktailDetailsViewController.swift */; };
 		3CAEA0B72738B605009CAFF7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B62738B605009CAFF7 /* NetworkManager.swift */; };
 		3CAEA0B92738B828009CAFF7 /* Cocktails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B82738B828009CAFF7 /* Cocktails.swift */; };
@@ -82,10 +77,6 @@
 		3CA92BC1280F28DE0057EB50 /* FavoriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRouter.swift; sourceTree = "<group>"; };
 		3CA92BC42810A7720057EB50 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		3CA92BC62810AA5C0057EB50 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
-		3CA92BC82815C7BE0057EB50 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
-		3CA92BCA2815C7D50057EB50 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
-		3CA92BCC2815C7E80057EB50 /* SearchConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConfigurator.swift; sourceTree = "<group>"; };
-		3CA92BCE2815C7F70057EB50 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		3CA92BD028186CC60057EB50 /* ListAllCocktailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAllCocktailsModel.swift; sourceTree = "<group>"; };
 		3CA92BD228186E7F0057EB50 /* ExpandableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableHeaderView.swift; sourceTree = "<group>"; };
 		3CA92BD528188C9F0057EB50 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +84,6 @@
 		3CA92BD928188CED0057EB50 /* ListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractor.swift; sourceTree = "<group>"; };
 		3CA92BDB28188D010057EB50 /* ListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListConfigurator.swift; sourceTree = "<group>"; };
 		3CA92BDD28188D160057EB50 /* ListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRouter.swift; sourceTree = "<group>"; };
-		3CAEA0AE27383C2D009CAFF7 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3CAEA0B3273849A8009CAFF7 /* CocktailDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailDetailsViewController.swift; sourceTree = "<group>"; };
 		3CAEA0B62738B605009CAFF7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3CAEA0B82738B828009CAFF7 /* Cocktails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktails.swift; sourceTree = "<group>"; };
@@ -197,7 +187,6 @@
 				3C05E49F273574C400E50CEE /* Cocktails */,
 				3C7AF5B4274B615B001B7B88 /* CocktailDetails */,
 				3CAEA0B027384898009CAFF7 /* Favorite */,
-				3CAEA0AD27383BF7009CAFF7 /* Search */,
 				3CA92BD428188C5D0057EB50 /* List */,
 				3CA92BD228186E7F0057EB50 /* ExpandableHeaderView.swift */,
 			);
@@ -242,18 +231,6 @@
 				3CA92BDD28188D160057EB50 /* ListRouter.swift */,
 			);
 			path = List;
-			sourceTree = "<group>";
-		};
-		3CAEA0AD27383BF7009CAFF7 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				3CAEA0AE27383C2D009CAFF7 /* SearchViewController.swift */,
-				3CA92BC82815C7BE0057EB50 /* SearchPresenter.swift */,
-				3CA92BCA2815C7D50057EB50 /* SearchInteractor.swift */,
-				3CA92BCE2815C7F70057EB50 /* SearchRouter.swift */,
-				3CA92BCC2815C7E80057EB50 /* SearchConfigurator.swift */,
-			);
-			path = Search;
 			sourceTree = "<group>";
 		};
 		3CAEA0B027384898009CAFF7 /* Favorite */ = {
@@ -411,7 +388,6 @@
 			files = (
 				3CA92BBA280F15BC0057EB50 /* FavoriteViewController.swift in Sources */,
 				3C05E48C2734246700E50CEE /* CocktailsViewController.swift in Sources */,
-				3CA92BC92815C7BE0057EB50 /* SearchPresenter.swift in Sources */,
 				3C7AF5BD274B663B001B7B88 /* CocktailDetailsConfigurator.swift in Sources */,
 				3CA92BD828188CDC0057EB50 /* ListPresenter.swift in Sources */,
 				3C05E4882734246700E50CEE /* AppDelegate.swift in Sources */,
@@ -430,7 +406,6 @@
 				3CA92BD628188C9F0057EB50 /* ListViewController.swift in Sources */,
 				3C05E4A32735781700E50CEE /* CocktailsInteractor.swift in Sources */,
 				3CA92BC52810A7720057EB50 /* Image.swift in Sources */,
-				3CAEA0AF27383C2D009CAFF7 /* SearchViewController.swift in Sources */,
 				3C05E48A2734246700E50CEE /* SceneDelegate.swift in Sources */,
 				3C7AF5B6274B618F001B7B88 /* CocktailDetailsPresenter.swift in Sources */,
 				3CAEA0B92738B828009CAFF7 /* Cocktails.swift in Sources */,
@@ -440,12 +415,9 @@
 				3CAEA0B4273849A8009CAFF7 /* CocktailDetailsViewController.swift in Sources */,
 				3CA92BBC280F28990057EB50 /* FavoritePresenter.swift in Sources */,
 				3CA92BB8280F05340057EB50 /* Cocktail+CoreDataProperties.swift in Sources */,
-				3CA92BCF2815C7F70057EB50 /* SearchRouter.swift in Sources */,
 				3C05E4A72735788C00E50CEE /* CocktailsRouter.swift in Sources */,
 				3CA92BBE280F28AF0057EB50 /* FavoriteInteractor.swift in Sources */,
 				3CA92BC2280F28DE0057EB50 /* FavoriteRouter.swift in Sources */,
-				3CA92BCB2815C7D50057EB50 /* SearchInteractor.swift in Sources */,
-				3CA92BCD2815C7E90057EB50 /* SearchConfigurator.swift in Sources */,
 				3CAEA0B72738B605009CAFF7 /* NetworkManager.swift in Sources */,
 				3C05E4A1273574EE00E50CEE /* CocktailsPresenter.swift in Sources */,
 				3CA92BB7280F05340057EB50 /* Cocktail+CoreDataClass.swift in Sources */,
