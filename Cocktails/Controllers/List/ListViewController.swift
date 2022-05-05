@@ -24,7 +24,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
     var configurator: ListConfiguratorProtocol = ListConfigurator()
     
     //MARK: - Private properties
-    private var sections: [ListAllCocktailsModel] = ListAllCocktailsModel.getNameForSections()
+    private var sections: [ListAllCocktailsModel] = ListAllCocktailsModel.getDataForSections()
     private let identifier = "cell"
 
     override func viewDidLoad() {
@@ -32,7 +32,9 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
         configurator.configure(view: self)
         presenter.requestData()
         
-        title = "All cocktials"
+        sections = ListAllCocktailsModel.sections
+        
+        title = "All cocktails"
     }
 
     // MARK: - Table view data source
@@ -41,14 +43,15 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sections[section].cocktails.count
+        sections[section].cocktails.drinks.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-
+        
         var content = cell.defaultContentConfiguration()
-        content.text = sections[indexPath.section].cocktails[indexPath.row]
+        content.text = sections[indexPath.section].cocktails.drinks[indexPath.row].strDrink
+        
         cell.contentConfiguration = content
         
         return cell
@@ -71,6 +74,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         let header = ExpandableHeaderView()
         header.setupHeaderView(with: sections[section].sectionName, sectionNumber: section, expanded: sections[section].expanded, delegate: self)
         
@@ -82,7 +86,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
         
         tableView.beginUpdates()
         
-        for row in 0..<sections[section].cocktails.count {
+        for row in 0..<sections[section].cocktails.drinks.count {
             tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .automatic)
         }
         

@@ -9,24 +9,33 @@ import Foundation
 
 struct ListAllCocktailsModel {
     var sectionName: String
-    var cocktails: [String?]
+    var cocktails: Cocktails
     var expanded: Bool
+    
+    static var sections: [ListAllCocktailsModel] = []
 }
 
 extension ListAllCocktailsModel {
     
-    static func getNameForSections() -> [ListAllCocktailsModel] {
+    static func getDataForSections() -> [ListAllCocktailsModel] {
         let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
                         "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
                         "u", "v","w", "x", "y", "z"]
-        var sectionsName: [ListAllCocktailsModel] = []
         
-        for number in 0..<alphabet.count {
-            let newSectionName = ListAllCocktailsModel(sectionName: alphabet[number], cocktails: ["1" ,"2"  , "3"], expanded: false)
-            print(newSectionName)
-            sectionsName.append(newSectionName)
+        DispatchQueue.main.async {
+    
+            for index in 0..<alphabet.count {
+                NetworkManager.shared.fetchData(from: URLs.allCocktails.rawValue + alphabet[index]) { cocktails in
+                    let section = ListAllCocktailsModel(sectionName: alphabet[index], cocktails: cocktails, expanded: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        sections.append(section)
+                        print(sections.count)
+                    }
+                }
+            }
         }
-        print(sectionsName)
-        return sectionsName
+        
+        return sections
     }
 }
