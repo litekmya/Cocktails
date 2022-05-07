@@ -21,7 +21,6 @@ extension UIImage {
         }
         
         ImageManager.shared.getImage(from: imageURL) { data, response, newImage in
-            
             DispatchQueue.main.async {
                 image = newImage
             }

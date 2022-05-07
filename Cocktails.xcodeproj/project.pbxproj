@@ -44,7 +44,6 @@
 		3CAEA0B72738B605009CAFF7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B62738B605009CAFF7 /* NetworkManager.swift */; };
 		3CAEA0B92738B828009CAFF7 /* Cocktails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0B82738B828009CAFF7 /* Cocktails.swift */; };
 		3CAEA0BB2738BE9E009CAFF7 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAEA0BA2738BE9E009CAFF7 /* URLs.swift */; };
-		3CB58E122823CB79001A8DDB /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB58E112823CB79001A8DDB /* Copy.swift */; };
 		DC70521FF875E7AA0837ABC7 /* Pods_Cocktails.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E27888929C83B7FA61BA91F /* Pods_Cocktails.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +88,6 @@
 		3CAEA0B62738B605009CAFF7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3CAEA0B82738B828009CAFF7 /* Cocktails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktails.swift; sourceTree = "<group>"; };
 		3CAEA0BA2738BE9E009CAFF7 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
-		3CB58E112823CB79001A8DDB /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
 		BCF0E538553581EAD008F816 /* Pods-Cocktails.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.debug.xcconfig"; path = "Target Support Files/Pods-Cocktails/Pods-Cocktails.debug.xcconfig"; sourceTree = "<group>"; };
 		DC54F6908FBB96501E74E522 /* Pods-Cocktails.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.release.xcconfig"; path = "Target Support Files/Pods-Cocktails/Pods-Cocktails.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,7 +133,6 @@
 				3C05E4AD273831F500E50CEE /* Resources */,
 				3C05E4982734246B00E50CEE /* Info.plist */,
 				3C05E4902734246700E50CEE /* Cocktails.xcdatamodeld */,
-				3CB58E112823CB79001A8DDB /* Copy.swift */,
 			);
 			path = Cocktails;
 			sourceTree = "<group>";
@@ -389,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CB58E122823CB79001A8DDB /* Copy.swift in Sources */,
 				3CA92BBA280F15BC0057EB50 /* FavoriteViewController.swift in Sources */,
 				3C05E48C2734246700E50CEE /* CocktailsViewController.swift in Sources */,
 				3C7AF5BD274B663B001B7B88 /* CocktailDetailsConfigurator.swift in Sources */,

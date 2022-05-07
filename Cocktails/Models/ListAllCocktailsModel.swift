@@ -23,14 +23,12 @@ extension ListAllCocktailsModel {
                         "u", "v","w", "x", "y", "z"]
         
         DispatchQueue.main.async {
-    
             for index in 0..<alphabet.count {
                 NetworkManager.shared.fetchData(from: URLs.allCocktails.rawValue + alphabet[index]) { cocktails in
                     let section = ListAllCocktailsModel(sectionName: alphabet[index], cocktails: cocktails, expanded: false)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         sections.append(section)
-                        print(sections.count)
                     }
                 }
             }

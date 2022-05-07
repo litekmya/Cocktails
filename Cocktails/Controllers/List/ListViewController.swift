@@ -32,7 +32,8 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
         configurator.configure(view: self)
         presenter.requestData()
         
-        sections = ListAllCocktailsModel.sections
+        sections = ListAllCocktailsModel.sections.sorted { $0.sectionName < $1.sectionName }
+        print("We get a sections \(sections.count)")
         
         title = "All cocktails"
     }
@@ -48,7 +49,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        
+
         var content = cell.defaultContentConfiguration()
         content.text = sections[indexPath.section].cocktails.drinks[indexPath.row].strDrink
         
@@ -74,7 +75,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+
         let header = ExpandableHeaderView()
         header.setupHeaderView(with: sections[section].sectionName, sectionNumber: section, expanded: sections[section].expanded, delegate: self)
         
