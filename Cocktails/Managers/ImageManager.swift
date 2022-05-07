@@ -26,9 +26,7 @@ class ImageManager {
             guard responseURL == url else { return }
             
             guard let image = UIImage(data: data) else { return }
-            
-            print("Мы получили картинку из интернета через ImageManager")
-            
+                        
             completion(data, response, image)
         }
     }

@@ -19,6 +19,7 @@ class ListPresenter {
     }
 }
 
+//MARK: - ListViewOutputProtocol
 extension ListPresenter: ListViewOutputProtocol {
 
     func requestData() {
@@ -27,7 +28,6 @@ extension ListPresenter: ListViewOutputProtocol {
     
     func requestSections() -> [ListAllCocktailsModel] {
         sections = interactor.provideSections()
-        print("requestSections")
         return sections
     }
     
@@ -35,8 +35,15 @@ extension ListPresenter: ListViewOutputProtocol {
         let header = interactor.provideHeader(with: sectionNumber, delegate: delegate)
         return header
     }
+    
+    func showCocktailDetails(at indexPath: IndexPath) {
+        let drink = sections[indexPath.section].cocktails.drinks[indexPath.row]
+        
+        router.openCocktailDetailsViewController(with: drink)
+    }
 }
 
+//MARK: - ListInteractorOutputProtocol
 extension ListPresenter: ListInteractorOutputProtocol {
     
     func recieveData() {

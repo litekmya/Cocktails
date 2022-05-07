@@ -40,12 +40,10 @@ class FavoriteViewController: UITableViewController {
         presenter.provideData()
         favoriteCocktails = presenter.getFavoriteCocktails()
         tableView.reloadData()
-        print("will")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("did")
     }
     
     //MARK: - Private methods

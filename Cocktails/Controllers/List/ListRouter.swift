@@ -5,12 +5,12 @@
 //  Created by Владимир Ли on 26.04.2022.
 //
 
-import UIKit
+import Foundation
 
 protocol ListRouterProtocol {
     init(view: ListViewController)
     
-    func openCocktailDetailsViewController(with cocktail: Cocktail, and image: UIImage)
+    func openCocktailDetailsViewController(with cocktail: Drink)
 }
 
 class ListRouter: ListRouterProtocol {
@@ -21,8 +21,9 @@ class ListRouter: ListRouterProtocol {
         self.view = view
     }
     
-    func openCocktailDetailsViewController(with cocktail: Cocktail, and image: UIImage) {
+    func openCocktailDetailsViewController(with cocktail: Drink) {
         print("Open detailsCocktail")
+        Router.shared.openDetailsViewController(with: cocktail, viewController: self.view)
     }
     
     

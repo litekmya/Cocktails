@@ -47,5 +47,4 @@ struct Drink: Codable {
     let strMeasure13: String?
     let strMeasure14: String?
     let strMeasure15: String?
-    
 }

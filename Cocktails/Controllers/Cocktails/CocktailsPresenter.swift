@@ -5,7 +5,6 @@
 //  Created by Владимир Ли on 05.11.2021.
 //
 
-import Foundation
 import UIKit
 
 class CocktailsPresenter {

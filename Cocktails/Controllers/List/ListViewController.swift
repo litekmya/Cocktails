@@ -7,6 +7,7 @@
 
 import UIKit
 
+//MARK: - Protocols
 protocol ListViewInputProtocol: AnyObject {
     func setupTableView()
 }
@@ -17,6 +18,7 @@ protocol ListViewOutputProtocol {
     func requestData()
     func requestSections() -> [ListAllCocktailsModel]
     func getHeader(with sectionNumber: Int, delegate: ExpandableHeaderViewDelegate) -> ExpandableHeaderView
+    func showCocktailDetails(at indexPath: IndexPath)
 }
 
 class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
@@ -29,6 +31,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
     private var sections: [ListAllCocktailsModel] = ListAllCocktailsModel.getDataForSections()
     private let identifier = "cell"
 
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,8 +39,6 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
         presenter.requestData()
         
         sections = presenter.requestSections()
-        
-        title = "All cocktails"
     }
 
     // MARK: - Table view data source
@@ -82,6 +83,12 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
         return header
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        presenter.showCocktailDetails(at: indexPath)
+    }
+    
     func toggleSection(header: ExpandableHeaderView, section: Int) {
         sections[section].expanded.toggle()
         
@@ -99,6 +106,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
 extension ListViewController: ListViewInputProtocol {
     
     func setupTableView() {
+        title = "All cocktails"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: identifier)
     }
 }

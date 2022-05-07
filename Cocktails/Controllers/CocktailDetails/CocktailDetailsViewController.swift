@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 
+//MARK: - Protocols
 protocol CocktailDetailsViewInputProtocol: AnyObject {
     func setupView()
     func setupScrollView()
@@ -166,7 +167,6 @@ extension CocktailDetailsViewController: CocktailDetailsViewInputProtocol {
             favoriteButton = UIBarButtonItem(image: fillStarImage, style: .done, target: self, action: #selector(addToFavorite))
             
             newFavoriteCocktail = favoriteCocktail
-
         }
         
         navigationItem.rightBarButtonItem = favoriteButton
