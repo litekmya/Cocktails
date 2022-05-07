@@ -15,6 +15,8 @@ protocol ListViewOutputProtocol {
     init(view: ListViewInputProtocol)
     
     func requestData()
+    func requestSections() -> [ListAllCocktailsModel]
+    func getHeader(with sectionNumber: Int, delegate: ExpandableHeaderViewDelegate) -> ExpandableHeaderView
 }
 
 class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
@@ -29,11 +31,11 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configurator.configure(view: self)
         presenter.requestData()
         
-        sections = ListAllCocktailsModel.sections.sorted { $0.sectionName < $1.sectionName }
-        print("We get a sections \(sections.count)")
+        sections = presenter.requestSections()
         
         title = "All cocktails"
     }
@@ -75,9 +77,7 @@ class ListViewController: UITableViewController, ExpandableHeaderViewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-        let header = ExpandableHeaderView()
-        header.setupHeaderView(with: sections[section].sectionName, sectionNumber: section, expanded: sections[section].expanded, delegate: self)
+        let header = presenter.getHeader(with: section, delegate: self)
         
         return header
     }
